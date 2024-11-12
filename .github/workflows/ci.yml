@@ -12,57 +12,37 @@ jobs:
   laravel-tests:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:5.7
-        env:
-          MYSQL_ROOT_PASSWORD:
-          MYSQL_DATABASE: quick_parking
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=3
-
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
 
       - name: Set up PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          extensions: mbstring, pdo, ctype, json, tokenizer, xml
+          extensions: mbstring, pdo_mysql, ctype, json, tokenizer, xml
           ini-values: post_max_size=256M, max_execution_time=300
 
       - name: Install Composer dependencies
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Set up environment file
-        run: cp .env.example .env
-
-      - name: Configure database connection for testing
         run: |
-          sed -i 's/DB_HOST=127.0.0.1/DB_HOST=localhost/' .env
-          sed -i 's/DB_CONNECTION=mysql/DB_CONNECTION=mysql/' .env
-          sed -i 's/DB_PORT=3306/DB_PORT=3306/' .env
-          sed -i 's/DB_DATABASE=homestead/DB_DATABASE=quick_parking/' .env
-          sed -i 's/DB_USERNAME=root/DB_USERNAME=root/' .env
-          sed -i 's/DB_PASSWORD=/DB_PASSWORD=/' .env
+          cp .env.example .env
+          php artisan key:generate
+          # Configurar la base de datos remota utilizando secretos
+          echo "DB_CONNECTION=mysql" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
+          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=" >> .env
 
-      - name: Generate application key
-        run: php artisan key:generate
-
-      - name: Configure testing database
-        run: |
-          php artisan config:cache
-          php artisan migrate --env=testing --force # Si necesitas migrar la base de datos
+      - name: Run database migrations
+        run: php artisan migrate --force
 
       - name: Run seeders
-        run: php artisan db:seed --env=testing # Ejecuta los seeders necesarios
+        run: php artisan db:seed --force
 
       - name: Run tests
         run: php artisan test
-
