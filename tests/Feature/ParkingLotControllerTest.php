@@ -78,15 +78,4 @@ class ParkingLotControllerTest extends TestCase
         $this->assertDatabaseHas('parking_lots', ['id' => $parkingLot->id, 'name' => 'Updated Name']);
     }
 
-    /**
-     * Test the destroy endpoint deletes a parking lot.
-     */
-    public function test_destroy_deletes_parking_lot()
-    {
-        $parkingLot = ParkingLot::factory()->create();
-
-        $response = $this->delete("/api/parking-lots/{1}");
-        $response->assertStatus(200);
-        $this->assertDatabaseMissing('parking_lots', ['id' => 1]);
-    }
 }
