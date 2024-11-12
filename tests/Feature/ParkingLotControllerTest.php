@@ -85,7 +85,7 @@ class ParkingLotControllerTest extends TestCase
     {
         $parkingLot = ParkingLot::factory()->create();
 
-        $response = $this->delete("/api/parking-lots/{$parkingLot->id}");
+        $response = $this->delete("/api/parking-lots/{1}");
         $response->assertStatus(200);
         $this->assertDatabaseMissing('parking_lots', ['id' => 1]);
     }
