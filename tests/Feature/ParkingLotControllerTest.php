@@ -52,7 +52,6 @@ class ParkingLotControllerTest extends TestCase
             ->assertJson([
                 'id' => $parkingLot->id,
                 'name' => $parkingLot->name,
-                // Agrega más campos si es necesario
             ]);
     }
 
@@ -78,4 +77,55 @@ class ParkingLotControllerTest extends TestCase
         $this->assertDatabaseHas('parking_lots', ['id' => $parkingLot->id, 'name' => 'Updated Name']);
     }
 
+
+    /**
+     * REPOSITORY UNIT TESTING
+     */
+
+    public function test_create_parking_lot_with_repository()
+    {
+        $data = [
+            'name' => 'Parqueadero Nuevo',
+            'address' => 'Avenida Siempre Viva 123',
+            'phone_number' => '987654321',
+            'nit' => '123456789-0',
+            'coord_x' => '4.560000',
+            'coord_y' => '-75.670000',
+        ];
+
+        $repository = new \App\Repositories\ParkingLotRepository();
+        $createdParkingLot = $repository->createParkingLot($data);
+
+        $this->assertDatabaseHas('parking_lots', ['name' => 'Parqueadero Nuevo']);
+        $this->assertEquals($data['name'], $createdParkingLot->name);
+    }
+
+    public function test_get_parking_lot_by_id_with_repository()
+    {
+        $parkingLot = ParkingLot::factory()->create();
+
+        $repository = new \App\Repositories\ParkingLotRepository();
+        $fetchedParkingLot = $repository->getParkingLotById($parkingLot->id);
+
+        $this->assertEquals($parkingLot->id, $fetchedParkingLot->id);
+        $this->assertEquals($parkingLot->name, $fetchedParkingLot->name);
+    }
+
+    public function test_update_parking_lot_with_repository(){
+        $parkingLot = ParkingLot::factory()->create();
+        $updatedData = [
+            'name' => 'Parqueadero Actualizado',
+            'address' => 'Calle Falsa 456',
+            'phone_number' => '123456789',
+            'nit' => '987654321-0',
+            'coord_x' => '4.570000',
+            'coord_y' => '-75.660000',
+        ];
+
+        $repository = new \App\Repositories\ParkingLotRepository();
+        $updatedParkingLot = $repository->updateParkingLot($updatedData, $parkingLot->id);
+
+        $this->assertEquals('Parqueadero Actualizado', $updatedParkingLot->name);
+        $this->assertDatabaseHas('parking_lots', ['id' => $parkingLot->id, 'name' => 'Parqueadero Actualizado']);
+    }
 }
