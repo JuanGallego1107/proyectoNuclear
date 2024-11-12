@@ -38,7 +38,7 @@ class AuthController extends Controller
         $loginResponse = $this->authRepository->login($credentials);
 
         if ($loginResponse['status']) {
-            return response()->json(['message' => $loginResponse['message']], 200);
+            return response()->json(['user' => $loginResponse['user']], 200);
         }
 
         return response()->json(['message' => $loginResponse['message']], 401);

@@ -52,7 +52,9 @@ class ParkingLotController extends Controller
             'coord_y' => 'required',
         ]);
 
-        $this->parkingLotRepository->createParkingLot($request->all());
+        $parkingLot = $this->parkingLotRepository->createParkingLot($request->all());
+
+        return response()->json($parkingLot);
     }
 
     /**
@@ -89,7 +91,9 @@ class ParkingLotController extends Controller
             'coord_y' => 'required',
         ]);
 
-        $this->parkingLotRepository->updateParkingLot($request->all(), $id);
+        $updatedParking = $this->parkingLotRepository->updateParkingLot($request->all(), $id);
+
+        return response()->json($updatedParking);
     }
 
     /**

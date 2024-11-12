@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Interfaces\UserRepositoryInterface;
+use App\Models\ParkingLot;
 use App\Models\User;
 
 class UserRepository implements UserRepositoryInterface
@@ -21,8 +22,8 @@ class UserRepository implements UserRepositoryInterface
             'phone_number' => $data['phone_number'],
             'id_number' => $data['id_number'],
             'email' => $data['email'],
-            'id_role' => $data['id_role'],
-            'id_parking_lot' => $data['id_parking_lot'],
+            'id_role' => $data['id_role'] ?? 2,
+            'id_parking_lot' => $data['id_parking_lot'] ?? ParkingLot::get()->last()->id,
         ]);
     }
 

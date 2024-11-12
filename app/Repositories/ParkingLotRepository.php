@@ -9,7 +9,7 @@ class ParkingLotRepository implements ParkingLotRepositoryInterface
 {
     public function getAllParkingLots()
     {
-        return ParkingLot::orderByDesc('id')->paginate(10);
+        return ParkingLot::orderByDesc('id')->get();
     }
 
     public function createParkingLot(array $data)

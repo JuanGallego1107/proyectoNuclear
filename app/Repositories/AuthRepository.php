@@ -15,7 +15,7 @@ class AuthRepository implements AuthRepositoryInterface
 
         // If user exist and password matches
         if ($user && Hash::check($credentials['password'], $user->password)) {
-            return ['status' => true, 'message' => 'Login successful'];
+            return ['status' => true, 'user' => $user];
         }
 
         // Si fallan las credenciales

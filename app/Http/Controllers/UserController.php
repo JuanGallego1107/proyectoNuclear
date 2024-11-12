@@ -50,8 +50,8 @@ class UserController extends Controller
             'phone_number' => 'required',
             'id_number' => 'required',
             'email' => ['required', Rule::unique('users', 'email')],
-            'id_role' => 'required',
-            'id_parking_lot' => 'required',
+            'id_role' => '',
+            'id_parking_lot' => '',
         ]);
 
         $this->userRepository->createUser($request->all());
