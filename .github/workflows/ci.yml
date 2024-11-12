@@ -20,7 +20,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 8.2
-          extensions: mbstring, pdo_mysql, ctype, json, tokenizer, xml
+          extensions: mbstring, pdo, sqlite, ctype, json, tokenizer, xml
           ini-values: post_max_size=256M, max_execution_time=300
 
       - name: Install Composer dependencies
@@ -30,16 +30,12 @@ jobs:
         run: |
           cp .env.example .env
           php artisan key:generate
-          # Configurar la base de datos remota utilizando secretos
-          echo "DB_CONNECTION=mysql" >> .env
-          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
-          echo "DB_PORT=${{ secrets.DB_PORT }}" >> .env
-          echo "DB_DATABASE=${{ secrets.DB_DATABASE }}" >> .env
-          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
-          echo "DB_PASSWORD=" >> .env
+          echo "DB_CONNECTION=sqlite" >> .env
+          echo "DB_DATABASE=$(pwd)/database/database.sqlite" >> .env
+          touch database/database.sqlite
 
-      - name: Run database migrations
-        run: php artisan migrate
+      - name: Run migrations
+        run: php artisan migrate --force
 
       - name: Run seeders
         run: php artisan db:seed --force
