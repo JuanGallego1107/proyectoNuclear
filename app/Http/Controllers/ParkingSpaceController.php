@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ParkingSpaceRepositoryInterface;
+use App\Models\ParkingSpace;
 use Illuminate\Http\Request;
 
 class ParkingSpaceController extends Controller
@@ -71,7 +72,7 @@ class ParkingSpaceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id The ID of the parking space to update.
-     * @return void
+     * @return ParkingSpace
      */
     public function update(Request $request, int $id)
     {
@@ -79,7 +80,7 @@ class ParkingSpaceController extends Controller
             'space_number' => 'required',
         ]);
 
-        $this->parkingSpaceRepository->updateParkingSpace($request->all(), $id);
+        return $this->parkingSpaceRepository->updateParkingSpace($request->all(), $id);
     }
 
     /**
@@ -93,5 +94,20 @@ class ParkingSpaceController extends Controller
     public function destroy(int $id)
     {
         $this->parkingSpaceRepository->deleteParkingSpace($id);
+    }
+
+    /**
+     * Display a listing of the parking spaces.
+     *
+     * Retrieves all parking spaces with their associated parking lots,
+     * ordered by ID in descending order.
+     *
+     * @param int $parkingLotId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getParkingSpacesByParkingLotId(int $parkingLotId)
+    {
+        $spaces = $this->parkingSpaceRepository->getParkingSpacesByParkingId($parkingLotId);
+        return response()->json($spaces);
     }
 }

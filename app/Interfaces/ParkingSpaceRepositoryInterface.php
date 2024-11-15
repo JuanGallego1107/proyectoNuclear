@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface ParkingSpaceRepositoryInterface
 {
     /**
@@ -43,4 +45,12 @@ interface ParkingSpaceRepositoryInterface
      * @return void
      */
     public function deleteParkingSpace(int $id);
+
+    /**
+     * Get a parking spaces by parking lot id
+     *
+     * @param int $id
+     * @return Collection
+     */
+    public function getParkingSpacesByParkingId(int $id);
 }

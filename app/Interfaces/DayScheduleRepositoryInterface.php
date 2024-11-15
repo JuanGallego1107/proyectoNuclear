@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface DayScheduleRepositoryInterface
 {
     /**
@@ -26,4 +28,12 @@ interface DayScheduleRepositoryInterface
      * @return void
      */
     public function updateDaySchedule(array $data);
+
+    /**
+     * Get all day schedules by a parking lot id
+     *
+     * @param array $data
+     * @return Collection
+     */
+    public function getDayScheduleByParkingId(int $parkingId);
 }

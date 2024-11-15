@@ -33,6 +33,9 @@ Route::apiResource('/payment-methods', PaymentMethodController::class);
 // Define API routes for the AdditionalService resource
 Route::apiResource('/additional-services', AdditionalServiceController::class);
 
+// Define a custom route for get the additional services by parking id
+Route::get('/additional-services-by-parking/{parkingLotId}', [AdditionalServiceController::class, 'getAdditionalServicesByParkingId']);
+
 // Define API routes for the WeekDay resource
 Route::apiResource('/week-days', WeekDayController::class);
 
@@ -41,6 +44,9 @@ Route::apiResource('/schedules', ScheduleController::class);
 
 // Define API routes for the DaySchedule resource
 Route::apiResource('/day-schedules', DayScheduleController::class);
+
+// Define a custom route for get day schedules by a parking lot id
+Route::get('/day-schedules-by-parking/{parkingLotId}', [DayScheduleController::class, 'getDaySchedulesByParkingLotId']);
 
 // Define a custom route for updating a schedule in the DaySchedule resource
 Route::put('/update-day-schedule', [DayScheduleController::class, 'updateScheduleDay']);
@@ -51,8 +57,14 @@ Route::apiResource('/vehicle-types', VehicleTypeController::class);
 // Define API routes for the Fee resource
 Route::apiResource('/fees', FeeController::class);
 
+// Define a custom route for get the fees by parking id
+Route::get('/fees-by-parking/{parkingLotId}', [FeeController::class, 'getFeesByParkingId']);
+
 // Define API routes for the ParkingSpace resource
 Route::apiResource('/parking-spaces', ParkingSpaceController::class);
+
+// Define a custom route for get the parking spaces by parking id
+Route::get('/parking-spaces-by-parking/{parkingLotId}', [ParkingSpaceController::class, 'getParkingSpacesByParkingLotId']);
 
 // Define a custom route to check user credentials
 Route::post('/login', [AuthController::class, 'login']);

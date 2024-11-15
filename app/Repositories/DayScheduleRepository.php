@@ -24,7 +24,8 @@ class DayScheduleRepository implements DayScheduleRepositoryInterface
 
     public function updateDaySchedule(array $data)
     {
-        DB::update('
+        DB::update(
+            '
             UPDATE day_schedules
             SET id_schedule = ?
             WHERE id_week_day = ?
@@ -35,5 +36,12 @@ class DayScheduleRepository implements DayScheduleRepositoryInterface
                 $data['id_parking_lot'],
             ]
         );
+    }
+
+    public function getDayScheduleByParkingId($parkingLotId)
+    {
+        return DaySchedule::with(['weekDay', 'schedule', 'parkingLot'])
+            ->where('id_parking_lot', $parkingLotId)
+            ->get();
     }
 }

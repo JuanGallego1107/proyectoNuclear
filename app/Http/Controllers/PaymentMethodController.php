@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\PaymentMethodRepositoryInterface;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 
 class PaymentMethodController extends Controller
@@ -70,7 +71,7 @@ class PaymentMethodController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id The ID of the payment method to update.
-     * @return void
+     * @return PaymentMethod
      */
     public function update(Request $request, int $id)
     {
@@ -78,7 +79,7 @@ class PaymentMethodController extends Controller
             'name' => 'required',
         ]);
 
-        $this->paymentMethodRepository->updatePaymentMethod($request->all(), $id);
+        return $this->paymentMethodRepository->updatePaymentMethod($request->all(), $id);
     }
 
     /**

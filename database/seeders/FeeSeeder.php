@@ -37,7 +37,35 @@ class FeeSeeder extends Seeder
             'name' => 'Moto hora',
             'cost' => 1000,
             'id_vehicle_type' => 2,
-            'id_parking_lot' => 1,
+            'id_parking_lot' => 2,
+        ]);
+
+        Fee::create([
+            'name' => 'Carro Hora',
+            'cost' => 2000,
+            'id_vehicle_type' => 1,
+            'id_parking_lot' => 2,
+        ]);
+
+        Fee::create([
+            'name' => 'Carro Dia',
+            'cost' => 10000,
+            'id_vehicle_type' => 1,
+            'id_parking_lot' => 2,
+        ]);
+
+        Fee::create([
+            'name' => 'Carro Mes',
+            'cost' => 70000,
+            'id_vehicle_type' => 1,
+            'id_parking_lot' => 2,
+        ]);
+
+        Fee::create([
+            'name' => 'Moto hora',
+            'cost' => 1000,
+            'id_vehicle_type' => 2,
+            'id_parking_lot' => 2,
         ]);
 
     }

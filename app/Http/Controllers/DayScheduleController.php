@@ -69,4 +69,10 @@ class DayScheduleController extends Controller
 
         $this->dayScheduleRepository->updateDaySchedule($request->all());
     }
+
+    public function getDaySchedulesByParkingLotId($parkingLotId)
+    {
+        $daySchedules = $this->dayScheduleRepository->getDayScheduleByParkingId($parkingLotId);
+        return response()->json($daySchedules);
+    }
 }

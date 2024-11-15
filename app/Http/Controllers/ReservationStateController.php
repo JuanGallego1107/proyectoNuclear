@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\ReservationStateRepositoryInterface;
+use App\Models\ReservationState;
 use Illuminate\Http\Request;
 
 class ReservationStateController extends Controller
@@ -70,7 +71,7 @@ class ReservationStateController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id The ID of the reservation state to update.
-     * @return void
+     * @return ReservationState
      */
     public function update(Request $request, int $id)
     {
@@ -78,7 +79,7 @@ class ReservationStateController extends Controller
             'name' => 'required',
         ]);
 
-        $this->reservationStateRepository->updateReservationState($request->all(), $id);
+        return $this->reservationStateRepository->updateReservationState($request->all(), $id);
     }
 
     /**

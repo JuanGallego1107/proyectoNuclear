@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\FeeRepositoryInterface;
+use App\Models\Fee;
 use Illuminate\Http\Request;
 
 class FeeController extends Controller
@@ -74,7 +75,7 @@ class FeeController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id The ID of the fee to update.
-     * @return void
+     * @return Fee
      */
     public function update(Request $request, int $id)
     {
@@ -84,7 +85,7 @@ class FeeController extends Controller
             'id_vehicle_type' => 'required',
         ]);
 
-        $this->feeRepository->updateFee($request->all(), $id);
+        return $this->feeRepository->updateFee($request->all(), $id);
     }
 
     /**
@@ -99,4 +100,20 @@ class FeeController extends Controller
     {
         $this->feeRepository->deleteFee($id);
     }
+
+     /**
+     * Display a listing of the fees .
+     *
+     * Retrieves all fees with their associated parking lots,
+     * ordered by ID in descending order.
+     *
+     * @param int $parkingLotId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getFeesByParkingId(int $parkingLotId)
+    {
+        $spaces = $this->feeRepository->getFeesByParkingId($parkingLotId);
+        return response()->json($spaces);
+    }
+    
 }

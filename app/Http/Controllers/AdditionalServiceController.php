@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Interfaces\AdditionalServiceRepositoryInterface;
+use App\Models\AdditionalService;
 use Illuminate\Http\Request;
 
 class AdditionalServiceController extends Controller
@@ -74,7 +75,7 @@ class AdditionalServiceController extends Controller
      *
      * @param \Illuminate\Http\Request $request
      * @param int $id The ID of the additional service to update.
-     * @return void
+     * @return AdditionalService
      */
     public function update(Request $request, int $id)
     {
@@ -83,7 +84,7 @@ class AdditionalServiceController extends Controller
             'cost' => 'required',
         ]);
 
-        $this->additionalServiceRepository->updateAdditionalService($id, $request->all());
+        return $this->additionalServiceRepository->updateAdditionalService($id, $request->all());
     }
 
     /**
@@ -97,5 +98,20 @@ class AdditionalServiceController extends Controller
     public function destroy(int $id)
     {
         $this->additionalServiceRepository->deleteAdditionalService($id);
+    }
+
+    /**
+     * Display a listing of the additional services
+     *
+     * Retrieves all aditional services with their associated parking lots,
+     * ordered by ID in descending order.
+     *
+     * @param int $parkingLotId
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getAdditionalServicesByParkingId(int $parkingLotId)
+    {
+        $spaces = $this->additionalServiceRepository->getAdditionalServicesByParkingId($parkingLotId);
+        return response()->json($spaces);
     }
 }

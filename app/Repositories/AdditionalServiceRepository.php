@@ -33,11 +33,20 @@ class AdditionalServiceRepository implements AdditionalServiceRepositoryInterfac
             'name' => $data['name'],
             'cost' => $data['cost'],
         ]);
+
+        return $service;
     }
 
     public function deleteAdditionalService(int $id)
     {
         $service = AdditionalService::findOrFail($id);
         $service->delete();
+    }
+
+    public function getAdditionalServicesByParkingId(int $id){
+
+        return AdditionalService::where('id_parking_lot', $id)
+        ->orderByDesc('id')
+        ->get();
     }
 }

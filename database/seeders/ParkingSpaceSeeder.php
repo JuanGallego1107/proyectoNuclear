@@ -30,7 +30,27 @@ class ParkingSpaceSeeder extends Seeder
 
         ParkingSpace::create([
             'space_number' => '104',
-            'id_parking_lot' => 1,
+            'id_parking_lot' => 2,
+        ]);
+
+        ParkingSpace::create([
+            'space_number' => '101',
+            'id_parking_lot' => 2,
+        ]);
+
+        ParkingSpace::create([
+            'space_number' => '102',
+            'id_parking_lot' => 2,
+        ]);
+
+        ParkingSpace::create([
+            'space_number' => '103',
+            'id_parking_lot' => 2,
+        ]);
+
+        ParkingSpace::create([
+            'space_number' => '104',
+            'id_parking_lot' => 2,
         ]);
 
     }

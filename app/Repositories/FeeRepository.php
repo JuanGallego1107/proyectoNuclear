@@ -45,4 +45,12 @@ class FeeRepository implements FeeRepositoryInterface
         $fee = Fee::findOrFail($id);
         $fee->delete();
     }
+
+    public function getFeesByParkingId(int $id){
+
+        return Fee::with(['vehicleType','parkingLot'])
+        ->where('id_parking_lot', $id)
+        ->orderByDesc('id')
+        ->get();
+    }
 }

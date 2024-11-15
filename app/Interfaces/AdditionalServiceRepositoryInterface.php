@@ -2,6 +2,9 @@
 
 namespace App\Interfaces;
 
+use App\Models\AdditionalService;
+use Illuminate\Database\Eloquent\Collection;
+
 interface AdditionalServiceRepositoryInterface
 {
     /**
@@ -32,7 +35,7 @@ interface AdditionalServiceRepositoryInterface
      *
      * @param int $id
      * @param array $data
-     * @return void
+     * @return AdditionalService
      */
     public function updateAdditionalService(int $id, array $data);
 
@@ -43,4 +46,12 @@ interface AdditionalServiceRepositoryInterface
      * @return void
      */
     public function deleteAdditionalService(int $id);
+
+    /**
+     * Get additional services by parking lot id
+     *
+     * @param int $id
+     * @return Collection
+     */
+    public function getAdditionalServicesByParkingId(int $id);
 }

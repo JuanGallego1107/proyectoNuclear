@@ -2,6 +2,8 @@
 
 namespace App\Interfaces;
 
+use Illuminate\Database\Eloquent\Collection;
+
 interface FeeRepositoryInterface
 {
     /**
@@ -43,4 +45,12 @@ interface FeeRepositoryInterface
      * @return void
      */
     public function deleteFee(int $id);
+
+        /**
+     * Get fees by parking lot id
+     *
+     * @param int $id
+     * @return Collection
+     */
+    public function getFeesByParkingId(int $id);
 }

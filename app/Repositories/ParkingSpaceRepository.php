@@ -43,4 +43,12 @@ class ParkingSpaceRepository implements ParkingSpaceRepositoryInterface
         $space = ParkingSpace::findOrFail($id);
         $space->delete();
     }
+
+    public function getParkingSpacesByParkingId(int $id){
+
+        return ParkingSpace::with(['parkingLot'])
+        ->where('id_parking_lot', $id)
+        ->orderByDesc('id')
+        ->get();
+    }
 }

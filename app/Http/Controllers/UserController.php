@@ -83,12 +83,13 @@ class UserController extends Controller
     public function update(Request $request, int $id)
     {
         $request->validate([
-            'user_name' => ['required', Rule::unique('users')->ignore($id)],
-            'name' => 'required',
-            'password' => 'required',
-            'phone_number' => 'required',
-            'id_number' => 'required',
-            'email' => ['required', Rule::unique('users')->ignore($id)],
+            'user_name' => ['nullable', Rule::unique('users')->ignore($id)],
+            'name' => 'nullable',
+            'password' => 'nullable',
+            'phone_number' => 'nullable',
+            'id_number' => 'nullable',
+            'email' => ['nullable', Rule::unique('users')->ignore($id)],
+            'state' => 'required',
         ]);
 
         $this->userRepository->updateUser($request->all(), $id);
