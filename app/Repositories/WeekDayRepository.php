@@ -24,21 +24,4 @@ class WeekDayRepository implements WeekDayRepositoryInterface
     {
         return WeekDay::findOrFail($id);
     }
-
-    public function updateWeekDay(array $data, int $id)
-    {
-        $day = WeekDay::findOrFail($id);
-        $day->update([
-            'day_number' => $data['day_number'],
-            'name' => $data['name'],
-        ]);
-
-        return $day;
-    }
-
-    public function deleteWeekDay(int $id)
-    {
-        $day = WeekDay::findOrFail($id);
-        $day->delete();
-    }
 }

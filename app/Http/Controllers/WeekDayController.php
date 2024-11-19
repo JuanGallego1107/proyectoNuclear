@@ -57,32 +57,4 @@ class WeekDayController extends Controller
         $day = $this->weekDayRepository->getWeekDayById($id);
         return response()->json($day);
     }
-
-    /**
-     * Update the specified weekday in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return void
-     */
-    public function update(Request $request, int $id)
-    {
-        $request->validate([
-            'day_number' => 'required',
-            'name' => 'required',
-        ]);
-
-        $this->weekDayRepository->updateWeekDay($request->all(), $id);
-    }
-
-    /**
-     * Remove the specified weekday from storage.
-     *
-     * @param int $id
-     * @return void
-     */
-    public function destroy(int $id)
-    {
-        $this->weekDayRepository->deleteWeekDay($id);
-    }
 }
