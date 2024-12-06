@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('space_number');
             $table->unsignedBigInteger('id_parking_lot');
+            $table->boolean('isOccupied')->default(false);
             $table->foreign('id_parking_lot')->references('id')->on('parking_lots')->onDelete('cascade');
             $table->softDeletes();
         });

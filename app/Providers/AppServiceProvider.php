@@ -9,6 +9,7 @@ use App\Interfaces\FeeRepositoryInterface;
 use App\Interfaces\ParkingLotRepositoryInterface;
 use App\Interfaces\ParkingSpaceRepositoryInterface;
 use App\Interfaces\PaymentMethodRepositoryInterface;
+use App\Interfaces\ReservationRepositoryInterface;
 use App\Interfaces\ReservationStateRepositoryInterface;
 use App\Interfaces\RoleRepositoryInterface;
 use App\Interfaces\ScheduleRepositoryInterface;
@@ -22,6 +23,7 @@ use App\Repositories\FeeRepository;
 use App\Repositories\ParkingLotRepository;
 use App\Repositories\ParkingSpaceRepository;
 use App\Repositories\PaymentMethodRepository;
+use App\Repositories\ReservationRepository;
 use App\Repositories\ReservationStateRepository;
 use App\Repositories\RoleRepository;
 use App\Repositories\ScheduleRepository;
@@ -51,6 +53,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
         $this->app->bind(VehicleTypeRepositoryInterface::class, VehicleTypeRepository::class);
         $this->app->bind(WeekDayRepositoryInterface::class, WeekDayRepository::class);
+        $this->app->bind(ReservationRepositoryInterface::class, ReservationRepository::class);
 
     }
 

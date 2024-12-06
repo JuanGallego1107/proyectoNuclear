@@ -16,8 +16,9 @@ class ParkingSpace extends Model
      * @var array
      */
     protected $fillable = [
-        'space_number',    // The number or identifier of the parking space
-        'id_parking_lot'   // The foreign key referencing the associated parking lot
+        'space_number', 
+        'isOccupied',   
+        'id_parking_lot' 
     ];
 
     /**

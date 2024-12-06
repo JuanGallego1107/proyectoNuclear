@@ -7,6 +7,7 @@ use App\Http\Controllers\FeeController;
 use App\Http\Controllers\ParkingLotController;
 use App\Http\Controllers\ParkingSpaceController;
 use App\Http\Controllers\PaymentMethodController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ReservationStateController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
@@ -68,3 +69,12 @@ Route::get('/parking-spaces-by-parking/{parkingLotId}', [ParkingSpaceController:
 
 // Define a custom route to check user credentials
 Route::post('/login', [AuthController::class, 'login']);
+
+// Define API routes for the Reservation resource
+Route::apiResource('/reservations', ReservationController::class);
+
+// Define a custom route for get the reservations by customer document id
+Route::get('/reservation-by-number/{id}', [ReservationController::class, 'getReservationByUniqueReservationId']);
+
+// Define a custom route for update a reservation state
+Route::put('/reservations/update-state/{id}', [ReservationController::class, 'updateReservationState']);

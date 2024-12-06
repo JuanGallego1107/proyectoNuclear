@@ -8,9 +8,14 @@ use App\Models\ParkingLot;
 class ParkingLotRepository implements ParkingLotRepositoryInterface
 {
     public function getAllParkingLots()
-    {
-        return ParkingLot::orderByDesc('id')->get();
-    }
+{
+    return ParkingLot::with([
+        'daySchedule.weekDay',
+        'daySchedule.schedule'
+    ])
+    ->orderByDesc('id')
+    ->get();
+}
 
     public function createParkingLot(array $data)
     {
@@ -26,8 +31,10 @@ class ParkingLotRepository implements ParkingLotRepositoryInterface
 
     public function getParkingLotById(int $id)
     {
-        return ParkingLot::findOrFail($id);
+        return ParkingLot::with(['daySchedule.weekDay', 'daySchedule.schedule', 'parkingSpace', 'fee', 'additionService'])
+            ->findOrFail($id);
     }
+    
 
     public function updateParkingLot(array $data, int $id)
     {
